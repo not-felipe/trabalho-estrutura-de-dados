@@ -134,6 +134,13 @@ int nivelDoNo(arvore *a, int x, int nivel){
 
   return nivel1;
 }
+void freeArvore(arvore *a) {
+    if (a != NULL) {
+        libera_arvore(a->esq);
+        libera_arvore(a->dir);
+        free(a);
+    }
+}
 int main(){
 
     arvore *a = NULL;
@@ -232,6 +239,7 @@ int main(){
     }
     }while(option != 9);
 
+    freeArvore(a);
 
     return 0;
   }
