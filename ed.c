@@ -1,12 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-int he, hd;
 typedef struct arvore{
     int info;
     struct arvore *esq;
     struct arvore *dir;
-} arvore;
+}arvore;
 arvore *lerArvore(FILE *arq) {
     arvore *a = NULL;
     char c;
@@ -53,17 +52,17 @@ void imprimirNivel(arvore *a, int cont, int n){
   if(a != NULL){
     if(cont == n) 
       printf("%d ", a->info);
-  }
     else{
       imprimirNivel(a->esq, cont + 1, n);
       imprimirNivel(a->dir, cont + 1, n);
     }
+  }
 }
 int altura(arvore *a){
   if (a == NULL) return 0;
   else{
-    he = altura(a->esq);
-    hd = altura(a->dir);
+    int he = altura(a->esq);
+    int hd = altura(a->dir);
     if(he > hd) return he + 1;
     else return hd + 1;
   }
@@ -71,8 +70,7 @@ int altura(arvore *a){
 void imprimirEmLargura(arvore *a){
   int h = altura(a);
   for(int i = 1; i <= h; i++){
-    imprimirNivel(a, 0, i);
-    printf("\n");
+    imprimirNivel(a, 1, i);
   }
 }
 int procurarElemento(arvore *a, int x){
@@ -102,7 +100,41 @@ void imprimirFolhas(arvore *a){
   imprimirFolhas(a->dir);
 }
 }
-  int main(){
+int verificarArvoreBalanceada(arvore *a){
+    if(a == NULL)
+        return 1;
+
+    int he = altura(a->esq);
+    int hd = altura(a->dir);
+
+    if(abs(he - hd) <= 1 && verificarArvoreBalanceada(a->esq) && verificarArvoreBalanceada(a->dir) == 1){ //verifica se cada subarvore da direita e da esquerda sao balanceadas
+        return 1;
+    }
+
+    return 0;
+}
+int verificarArvoreCheia(arvore *a){
+  if(a == NULL) return 1;
+
+  if(a->esq == NULL && a->dir == NULL) return 1;
+
+  if(a->esq != NULL && a->dir != NULL) return verificarArvoreCheia(a->esq) && verificarArvoreCheia(a->dir); //chega se todas as subarvores tem 2 elementos filhos
+
+  return 0;
+}
+int nivelDoNo(arvore *a, int x, int nivel){
+  if(a == NULL) return -1; //menos 1, porque nesse caso o nivel pode ser 0
+
+  if(a->info == x) return nivel;
+
+  int nivel1 = nivelDoNo(a->esq, x, nivel+1);
+  if(nivel1 == -1){ //se nao estiver na esquerda procura na direita
+    nivel1 = nivelDoNo(a->dir, x, nivel+1);
+  }
+
+  return nivel1;
+}
+int main(){
 
     arvore *a = NULL;
     FILE *arq;
@@ -142,14 +174,10 @@ void imprimirFolhas(arvore *a){
             imprimirPosOrdem(a);
             printf("\n");
             break;
-          case 4:{
-            int altura;
-            printf("Digite a altura que deseja imprimir: ");
-            scanf("%d", &altura);
+          case 4:
             imprimirEmLargura(a);
             printf("\n");
             break;
-            }
           default:
             printf("Opção Invalida!\n");
             break;
@@ -177,11 +205,24 @@ void imprimirFolhas(arvore *a){
         printf("\n");
         break;
       case 6:
+        if(verificarArvoreBalanceada(a) == 1)
+          printf("Arvore balanceada!\n");
+        else 
+          printf("A Arvore nao esta balanceada!\n");
         break;
       case 7:
+        if(verificarArvoreCheia(a) == 1)
+          printf("Arvore cheia!\n");
+        else
+          printf("A Arvore nao esta cheia!\n");
         break;
       case 8:
+        {int x;
+        printf("Digite o no que esta buscando: ");
+        scanf("%d", &x);
+        printf("Nivel do no %d: %d\n", x, nivelDoNo(a, x, 0));
         break;
+        }
       case 9:
         printf("Encerrando Programa...\n");
         break;

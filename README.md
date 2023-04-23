@@ -5,8 +5,8 @@
   <li>Verificar se um elemento x existe na árvore ✔️</li>
   <li>Contar o número de elementos na árvore ✔️</li>
   <li>Imprimir os nós folhas da árvore ✔️</li>
-  <li>Verificar se uma árvore está balanceada</li>
-  <li>Verificar se uma árvore é cheio</li>
-  <li>Imprimir o nível de um nó x</li>
+  <li>Verificar se uma árvore está balanceada ✔️</li>
+  <li>Verificar se uma árvore é cheia ✔️</li>
+  <li>Imprimir o nível de um nó x ✔️</li>
   <li>Sair ✔️</li>
 </ol>
