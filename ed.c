@@ -136,8 +136,8 @@ int nivelDoNo(arvore *a, int x, int nivel){
 }
 void freeArvore(arvore *a) {
     if (a != NULL) {
-        libera_arvore(a->esq);
-        libera_arvore(a->dir);
+        freeArvore(a->esq);
+        freeArvore(a->dir);
         free(a);
     }
 }
