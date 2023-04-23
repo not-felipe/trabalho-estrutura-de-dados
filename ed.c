@@ -107,7 +107,7 @@ int verificarArvoreBalanceada(arvore *a){
     int he = altura(a->esq);
     int hd = altura(a->dir);
 
-    if(abs(he - hd) <= 1 && verificarArvoreBalanceada(a->esq) && verificarArvoreBalanceada(a->dir) == 1){ //verifica se cada subarvore da direita e da esquerda sao balanceadas
+    if(abs(he - hd) <= 1 && verificarArvoreBalanceada(a->esq) && verificarArvoreBalanceada(a->dir) == 1){ //verifica se cada subarvore da direita e da esquerda sao balanceadas && abs é uma função que retorna o valor absoluto 
         return 1;
     }
 
