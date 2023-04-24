@@ -1,3 +1,5 @@
+//Trabalho feito por Felipe Alves e Hugo Leonardo
+
 #include<stdio.h>
 #include<stdlib.h>
 
